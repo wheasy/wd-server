@@ -1,5 +1,5 @@
 {
-  "name": "light-server",
+  "name": "wd-server",
   "version": "0.0.1",
   "description": "",
   "preferGlobal": true,
@@ -13,7 +13,7 @@
     "less": "^2.5.3"
   },
   "bin": {
-    "light-server": "light-server.js"
+    "tick-server": "light-server.js"
   },
   "repository": {
     "type": "git",
