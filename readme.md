@@ -23,10 +23,10 @@ $ sudo npm install wd-server -g
 包括样式引用和模板机制的使用
 
 ```
-    git clone https://github.com/wheasy/wd-server-example.git
+git clone https://github.com/wheasy/wd-server-example.git
 ```
 
-> 如果没有git，可直接[下载](#)源码。
+> 如果没有git，可直接[下载](https://github.com/wheasy/wd-server-example/releases/tag/v0.0.1)源码。
 
 
 ### 启动服务
