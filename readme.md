@@ -40,7 +40,7 @@ $ cd ~/project/site
 $ light-server
 ```
 
-在任意位置启动站点，并指定端口号
+在任意位置启动站点，并指定`端口号`
 
 ```
 $ light-server -d ~/project/site -p 8080
@@ -49,19 +49,21 @@ $ light-server -d ~/project/site -p 8080
 ### 目录结构
 light-server有三个特殊文件（夹）
 
-* blocks[dir]  是模板存放目录
-* less[dir]    LESS文件存放目录
-* .light  可通过该文件配置light-server
+文件（夹）名称|说明
+----|----
+blocks|  模板存放目录
+less|    LESS文件存放目录
+.light   |可通过该文件配置light-server
 
 light-server 默认不会显示这三个文件
 
 ###.light 详解
 
-位于站点根目录，可通过该文件配置light-server。
+位于站点根目录，可通过该文件配置服务。
 
 >默认端口号为8180
 >
->light-server内置部分mime，可通过mime进行补充
+>light-server内置常见mime，可通过mime进行补充
 
 ```
 {
@@ -85,7 +87,7 @@ light-server 默认不会显示这三个文件
 }
 ```
 
-如只需要设置端口号，可在启动时通过参数`p`指定。
+如需要指定端口号，可在启动时通过参数`p`指定。
 
 ### 答疑
 如有疑问或建议，请在[这里](https://github.com/wheasy/light-server/issues)上留言。
