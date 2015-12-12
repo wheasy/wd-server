@@ -1,0 +1,64 @@
+@import "/icons";
+body{
+    color:#333;
+}
+a{
+    color:#333;
+    text-decoration: none;
+}
+.wrap{
+    padding: 20px;
+}
+.parent{
+    // display: none;
+    padding-bottom: 1em;
+}
+.qrcode{
+    display: block;
+    width: 2em;
+    height: 100%;
+    background-color: red;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: url(/__assets/img/astro.png) no-repeat;
+    background-size: 100%;
+    background-position: center;    
+}
+.qrcode-box{
+    position: absolute;
+    display: none;
+    right: 82px;
+    top: 60px;
+    border: 2px solid #ccc;
+    padding: 5px;
+    background-color: #fff;    
+}
+.file-list{
+    line-height: 1.5;
+    padding: 0;
+    margin: 0;
+}
+.file-list li{
+    list-style: none;
+    border-bottom: 1px solid #ccc;
+    line-height: 3;
+    font-size: 16px;
+    position: relative;
+}
+.file-list li a{
+    display: block;
+    .icon{
+        margin-right: .3em;
+    }
+}
+.file-list li a:hover{
+    background-color: #ffffcc
+}
+.empty{
+    margin: 30px 0;
+}
+
+.power{
+    text-align: center;
+}

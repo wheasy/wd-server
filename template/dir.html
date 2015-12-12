@@ -1,0 +1,82 @@
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="/__assets/css/dir.css"> 
+    <script>
+    if(location.pathname == '/'){
+        document.write('<style>.parent{display:none;}</style>')
+    }
+    </script>
+</head>
+<body>
+    <div class="wrap">
+    <a class="parent" href="../">上级目录</a>
+    {{if list.length == 0}}
+        <div class="empty">目录为空</div>
+    {{else}}
+        <ul class="file-list">
+            {{each list as item}}
+            <li >
+                <a href="{{item.path}}">
+                    <i class="icon i-{{item.icon}}"></i>{{item.name}}</a>
+                <div title="生成二维码" class="qrcode"></div>
+            </li>
+            {{/each}}
+        </ul>
+    {{/if}}
+    </div>
+    <p class="power">power by light-server(ver:0.0.1)</p>
+    <p class="power">view on <a href="github">github</a></p>
+    <script src="/__assets/js/jquery.1.11.3.min.js"></script>
+    <script src="/__assets/js/jquery.qrcode.js"></script>
+    <script src="/__assets/js/qrcode.js"></script>
+    <script>     
+        var box = $('<div class="qrcode-box"></div>');
+        $('body').append(box);
+
+        $(function(){
+            
+
+            $('body').click(function(e){
+                var toEle = $(e.toElement);
+                if(toEle.hasClass('qrcode')){
+                    return;
+                }
+                box.hide();
+            });
+            $('.qrcode').click(function(e){
+                e.preventDefault();
+
+                var self = $(this);
+
+                if(self.hasClass('active')){
+                    self.removeClass('active');
+                    box.hide();
+                    return
+                }
+
+                box.empty();
+                box.qrcode({
+                    render  : "table",
+                    text    : $(this).prev().attr('href')
+                }); 
+
+                var pos = self.offset();
+                box.css({
+                    right   : self.width() + 50,
+                    top     : pos.top
+                })
+
+                self.addClass('active')
+                box.show();
+            });
+            box.click(function(){
+                $('.active').removeClass('active')
+                box.hide();
+            });
+        });
+    </script>
+</body>
+</html>

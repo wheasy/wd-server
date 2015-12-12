@@ -1,0 +1,43 @@
+<html>
+<head>
+    <title></title>
+    <style>
+    body{
+        color:#333;
+    }
+    a{
+        color:#333;
+        text-decoration: none;
+    }
+    a:hover{
+        text-decoration: underline;
+    }
+    .parent{
+        
+    }
+    .dir{
+        
+    }
+    .file-list{
+        line-height: 1.5;
+        padding: 0;
+        margin: 0;
+    }
+    .file-list li{
+        border-bottom: 1px solid #ccc;
+    }
+    </style>
+</head>
+<body>
+    <a class="parent" href="../">parent</a>
+    {{if list.length == 0}}
+        <div class="empty">目录为空</div>
+    {{else}}
+        <ul class="file-list">
+            {{each list as item}}
+            <li><a class="file-{{item.type}} {{item.isDir?"dir":''}}" href="{{item.path}}">{{item.name}}</a></li>
+            {{/each}}
+        </ul>
+    {{/if}}
+</body>
+</html>

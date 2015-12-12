@@ -1,0 +1,28 @@
+{
+  "name": "light-server",
+  "version": "0.0.1",
+  "description": "",
+  "preferGlobal": true,
+  "dependencies": {
+    "commander": "^2.9.0",
+    "console-prettify": "0.0.2",
+    "file-plus": "0.0.2",
+    "jstransformer": "0.0.4",
+    "jstransformer-html-beautify": "0.0.1",
+    "lang-utils": "^0.0.2",
+    "less": "^2.5.3"
+  },
+  "bin": {
+    "light-server": "light-server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wheasy/light-server"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "wheasy <wanhu88@gmail.com>",
+  "license": "ISC"
+}
