@@ -18,7 +18,7 @@ var mime = require('./mime');
 
 
 program
-    .option('-d, --dir <sire root>', 'site root')
+    .option('-d, --dir <sire root>', '站点根目录')
     .option('-p, --port <port>', '端口号')
     .parse(process.argv);
 
@@ -38,19 +38,18 @@ try {
     if(stat){
         console.error('parse json error;\t%s isn\'t a json file!', cfgPath);
     }else{
-        console.warn('you can')
+        console.warn('you can config server by "%s".\n' +
+        ' You can join the qq group(370792320) to get help!', cfgPath);
+        
     }
 }
 
 config.root = root;
 
 
-console.info('you can config server with "%s".\n' +
-    ' you can visit http:// to get help!', cfgPath);
 
 
 let port = program.port || config.port || 8180;
-let blockPath = path.join(root, 'blocks');
 
 //创建http服务端
 let server = require("http").createServer(function(request, response) {
@@ -72,11 +71,22 @@ let server = require("http").createServer(function(request, response) {
         fileHandle(response, request, realPath, config);
     }
 });
-console.info('server is listening on %s', port);
-
-
 
 server.listen(port);
+
+var ips = lutil.getLocalIp();
+
+
+console.log('server is listening on %d', port);
+console.log('you can visit with:')
+
+ips.forEach(function(ip){
+    if(ips.length > 1 && (ip === '127.0.0.1' || ip === '0.0.0.0')){
+        return;
+    }
+    console.info('  http://%s:%s',ip, port);
+});
+
 
 function fileHandle(response, request, realPath, config) {
     let pathname    = path.relative(config.root, realPath);
@@ -111,7 +121,7 @@ function fileHandle(response, request, realPath, config) {
 
     if (ext === 'html' || ext === 'htm') {
         require('./lib/engine')(realPath, {
-                blockDir: blockPath
+                blockDir: path.join(root, 'blocks')
             },
             function(data) {
                 var beautify = require('jstransformer')(require('jstransformer-html-beautify'))

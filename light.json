@@ -1,4 +1,13 @@
 {
-    "port":8180,
-    "ignore": [".DS_Store", "blocks", "less", ".git", ".svn", ".npm","server.sh","server.bat"]
+    "port": 8180,
+    "ignore": [
+        ".DS_Store", 
+        "blocks", 
+        "less", 
+        ".git", 
+        ".svn", 
+        ".npm", 
+        "server.sh", 
+        "server.bat"
+    ]
 }
