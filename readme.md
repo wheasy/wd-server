@@ -3,13 +3,13 @@
 light-server 是一个轻量的Web Server。支持LESS（SASS、Stylus什么的，等后续吧。。。）解析、支持简单的模板继承。
 
 `light-server` 的目的在于简化前端开发环境。支持LESS解析、
-模板机制（是的，还支持继承，你不必把页头反复考来考去了）。但有一下
+模板机制（是的，还支持继承，你不必把页头反复考来考去了）。但有以下
 几点需要注意：
 
 1. LESS中`import`强制改为绝对路径。基于根目录的 less路径。
 2. LESS文件必须放到`less`目录。访问规则如下：<br/>
     /css/user/login.css&nbsp;&nbsp;&lt;&lt;----&nbsp;&nbsp;/less/user/login.less
-3. light-server会禁用浏览器缓存，这样不必修改版本号，方便手机端开发
+3. light-server 会禁用浏览器缓存，这样文件修改后不必修改版本号，方便手机端开发
 
 
 ### 安装
@@ -29,7 +29,7 @@ $ sudo npm install light-server -g
 > 如果没有git，可直接[下载](#)源码。
 
 
-### 示例
+### 启动服务
 
 假设站点根目录位于  `~/project/site`
 
@@ -49,7 +49,7 @@ $ light-server -d ~/project/site -p 8080
 ### 目录结构
 light-server有三个特殊文件（夹）
 
-文件（夹）名称|说明
+名称|说明
 ----|----
 blocks|  模板存放目录
 less|    LESS文件存放目录
@@ -59,11 +59,11 @@ light-server 默认不会显示这三个文件
 
 ###.light 详解
 
-位于站点根目录，可通过该文件配置服务。
+改文件位于站点根目录，JSON格式，可通过它配置服务。
 
 >默认端口号为8180
 >
->light-server内置常见mime，可通过mime进行补充
+>light-server 内置了常见mime，需要补充时，可通过mime添加
 
 ```
 {
@@ -90,7 +90,7 @@ light-server 默认不会显示这三个文件
 如需要指定端口号，可在启动时通过参数`p`指定。
 
 ### 答疑
-如有疑问或建议，请在[这里](https://github.com/wheasy/light-server/issues)上留言。
+如有疑问或建议，请在[这里](https://github.com/wheasy/light-server/issues)上留言。或加入QQ群：370792320
 
 
 <!--
