@@ -11,7 +11,7 @@ var path = require("path");
 var program = require('commander');
 var lutil = require('lang-utils');
 
-var config = require("./light");
+var config = require("./wdsvr");
 var fileTypes = require('./fileType');
 var mime = require('./mime');
 
@@ -23,7 +23,7 @@ program
     .parse(process.argv);
 
 let root    = program.dir || process.cwd();
-let cfgPath = path.join(root, '.light');
+let cfgPath = path.join(root, '.wdsvr');
 
 
 try {

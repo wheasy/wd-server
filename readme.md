@@ -53,11 +53,11 @@ wd-server有三个特殊文件（夹）
 ----|----
 blocks|  模板存放目录
 less|    LESS文件存放目录
-.wd   |可通过该文件配置wd-server
+.wdsvr   |可通过该文件配置wd-server
 
 wd-server 默认不会显示这三个文件
 
-###.wd 详解
+###.wdsvr 详解
 
 改文件位于站点根目录，JSON格式，可通过它配置服务。
 

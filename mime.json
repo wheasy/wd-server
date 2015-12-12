@@ -13,9 +13,10 @@
     "svg": "image/svg+xml",
     "swf": "application/x-shockwave-flash",
     "tiff": "image/tiff",
-    "txt": "text/plain",
+    "txt": "text/plain;charset=utf-8",
     "wav": "audio/x-wav",
     "wma": "audio/x-ms-wma",
     "wmv": "video/x-ms-wmv",
-    "xml": "text/xml"
+    "xml": "text/xml",
+    "md":"text/markdown; charset=utf-8"
 }
