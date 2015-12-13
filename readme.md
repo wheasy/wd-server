@@ -57,6 +57,20 @@ less|    LESS文件存放目录
 
 wd-server 默认不会显示这三个文件
 
+### 发布
+你可以通过 `wd-server build`发布站点，发布后不包括 `block`和`less`文件。
+
+默认会解析到站点根目录的 `_build`目录，也可通过参数 `r`指定目录。
+
+`wd-server build [p] [r]`
+
+* p 站点根目录
+* r 要发布的目录，相对路径或绝对路径
+
+```
+$ wd-server build -p ~/project/site -r ~/project/site-build
+```
+
 ###.wdsvr 详解
 
 改文件位于站点根目录，JSON格式，可通过它配置服务。

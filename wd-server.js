@@ -20,6 +20,7 @@ var mime = require('./cfg/mime');
 program
     .option('-d, --dir <sire root>', '站点根目录')
     .option('-p, --port <port>', '端口号')
+    .option('-r, --realPath <port>', '发布目录')
     .parse(process.argv);
 
 
@@ -48,6 +49,7 @@ config.root = root;
 config.blocks = path.join(root, 'blocks');
 // 发布
 if(program.args[0] == 'build'){
+    config.realPath = program.realPath || '_build'
     require('./lib/build')(config);
     return;
 }
