@@ -1,8 +1,8 @@
 {
   "name": "wd-server",
-  "version": "0.0.5",
-  "_version": "0.0.4",
-  "description": "",
+  "version": "0.0.9",
+  "_version": "0.0.8",
+  "description": "wd-server 是一个轻量的Web Server。支持LESS解析和简单的模板继承。",
   "preferGlobal": true,
   "dependencies": {
     "commander": "^2.9.0",

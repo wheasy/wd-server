@@ -6,10 +6,8 @@ wd-server 是一个轻量的Web Server。支持LESS（SASS、Stylus什么的，�
 模板机制（是的，还支持继承，你不必把页头反复考来考去了）。但有以下
 几点需要注意：
 
-1. LESS中`import`强制改为绝对路径。基于根目录的 less路径。
-2. LESS文件必须放到`less`目录。访问规则如下：<br/>
-    /css/user/login.css&nbsp;&nbsp;&lt;&lt;----&nbsp;&nbsp;/less/user/login.less
-3. wd-server 会禁用浏览器缓存，这样文件修改后不必修改版本号，方便手机端开发
+1. LESS中`import`强制改为绝对路径。基于根目录的 cssLib。该目录发布时会被忽略。
+2. wd-server 会禁用浏览器缓存，这样文件修改后不必修改版本号，方便手机端开发
 
 
 ### 安装
@@ -26,7 +24,7 @@ $ sudo npm install wd-server -g
 git clone https://github.com/wheasy/wd-server-example.git
 ```
 
-> 如果没有git，可直接[下载](https://github.com/wheasy/wd-server-example/releases/tag/v0.0.1)源码。
+> 如果没有git，可直接[下载](https://github.com/wheasy/wd-server-example/releases)源码。
 
 
 ### 启动服务
@@ -83,7 +81,7 @@ $ wd-server build -p ~/project/site -r ~/project/site-build
 {
     // 端口号
     "port": 8180,
-    // 忽略文件
+    // 忽略文件，目录索引和发布时会忽略以下文件
     "ignore": [
         ".DS_Store", 
         "blocks", 

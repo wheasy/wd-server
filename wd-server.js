@@ -16,8 +16,8 @@ var fileTypes = require('./cfg/fileType');
 var mime = require('./cfg/mime');
 
 
-
 program
+    .version('0.0.7')
     .option('-d, --dir <sire root>', '站点根目录')
     .option('-p, --port <port>', '端口号')
     .option('-r, --realPath <port>', '发布目录')
