@@ -11,9 +11,9 @@ var path = require("path");
 var program = require('commander');
 var lutil = require('lang-utils');
 
-var config = require("./wdsvr");
-var fileTypes = require('./fileType');
-var mime = require('./mime');
+var config = require("./cfg/wdsvr");
+var fileTypes = require('./cfg/fileType');
+var mime = require('./cfg/mime');
 
 
 
@@ -21,6 +21,7 @@ program
     .option('-d, --dir <sire root>', '站点根目录')
     .option('-p, --port <port>', '端口号')
     .parse(process.argv);
+
 
 let root    = program.dir || process.cwd();
 let cfgPath = path.join(root, '.wdsvr');
@@ -32,7 +33,6 @@ try {
     if(config.mime){
         mime = Object.assign(mime, config.mime);
     }
-    console.log(userCfg);
 } catch (error) {
     let stat = tryStat(cfgPath);
     if(stat){
@@ -45,8 +45,12 @@ try {
 }
 
 config.root = root;
-
-
+config.blocks = path.join(root, 'blocks');
+// 发布
+if(program.args[0] == 'build'){
+    require('./lib/build')(config);
+    return;
+}
 
 
 let port = program.port || config.port || 8180;
@@ -92,7 +96,7 @@ function fileHandle(response, request, realPath, config) {
     let pathname    = path.relative(config.root, realPath);
     let ext         = path.extname(pathname);
         ext         = ext ? ext.slice(1) : 'unknown';
-    let contentType = mime[ext == 'less' ? 'css' : ext] || "text/plain";
+    let contentType = mime[ext] || "text/plain";
 
     response.setHeader("Content-Type", contentType);
 
@@ -115,13 +119,14 @@ function fileHandle(response, request, realPath, config) {
         response.writeHead(404, "not found", {
             'Content-Type': 'text/plain'
         });
+        console.warn(realPath + " is not found")
         response.end(realPath + " is not found");
         return;
     }
 
     if (ext === 'html' || ext === 'htm') {
         require('./lib/engine')(realPath, {
-                blockDir: path.join(root, 'blocks')
+                blockDir: config.blocks
             },
             function(data) {
                 var beautify = require('jstransformer')(require('jstransformer-html-beautify'))

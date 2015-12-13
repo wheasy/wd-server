@@ -9,6 +9,8 @@
         ".npm", 
         "server.sh", 
         "server.bat",
-        ".wdsvr"
+        ".wdsvr",
+        ".gitignore",
+        "_build"
     ]
 }
