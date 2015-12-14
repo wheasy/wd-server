@@ -6,8 +6,8 @@
   "preferGlobal": true,
   "dependencies": {
     "commander": "^2.9.0",
-    "console-prettify": "0.0.2",
-    "file-plus": "0.0.2",
+    "console-prettify": ">=0.0.2",
+    "file-plus": ">=0.0.2",
     "jstransformer": "0.0.4",
     "jstransformer-html-beautify": "0.0.1",
     "lang-utils": "^0.0.2",
