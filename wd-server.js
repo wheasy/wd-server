@@ -17,7 +17,7 @@ var mime = require('./cfg/mime');
 
 
 program
-    .version('0.0.7')
+    .version(require('./package.json').version)
     .option('-d, --dir <sire root>', '站点根目录')
     .option('-p, --port <port>', '端口号')
     .option('-r, --realPath <port>', '发布目录')
@@ -66,7 +66,7 @@ let server = require("http").createServer(function(request, response) {
     // 强制缓存，方便手机调试
     response.setHeader('CacheControl', 'no-store');
 
-    let pathname = url.parse(request.url).pathname,
+    let pathname =  decodeURI(url.parse(request.url).pathname),
         realPath = path.join(root, pathname),
         stat = tryStat(realPath);
 
