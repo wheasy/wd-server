@@ -27,6 +27,12 @@ program
 let root    = program.dir || process.cwd();
 let cfgPath = path.join(root, '.wdsvr');
 
+// 创建新项目
+if(program.args[0] == 'create'){
+    require('./lib/creator')(root);
+    return;
+}
+
 
 try {
     let userCfg = JSON.parse(fs.readFileSync(cfgPath, 'utf8'));
@@ -39,9 +45,8 @@ try {
     if(stat){
         console.error('parse json error;\t%s isn\'t a json file!', cfgPath);
     }else{
-        console.warn('you can config server by "%s".\n' +
-        ' You can join the qq group(370792320) to get help!', cfgPath);
-        
+        console.warn('you can config server with "%s".\n' +
+        ' you also can join the qq group(370792320) to get help!', cfgPath);
     }
 }
 
@@ -53,7 +58,6 @@ if(program.args[0] == 'build'){
     require('./lib/build')(config);
     return;
 }
-
 
 let port = program.port || config.port || 8180;
 
@@ -77,22 +81,38 @@ let server = require("http").createServer(function(request, response) {
         fileHandle(response, request, realPath, config);
     }
 });
-
-server.listen(port);
-
-var ips = lutil.getLocalIp();
-
-
-console.log('server is listening on %d', port);
-console.log('you can visit with:')
-
-ips.forEach(function(ip){
-    if(ips.length > 1 && (ip === '127.0.0.1' || ip === '0.0.0.0')){
+var temp_i = 0;
+server.on('error', function(e){
+    if (e.code == 'EADDRINUSE' )  {
+        if(temp_i++ >= 10){
+            console.log('尝试超过十次！');
+            return;
+        }
+        console.warn('端口 %s 被占用，尝试从 %s 启动', port, ++port);
+        setTimeout(function() {
+            server.close();
+            server.listen(port);
+        }, 100);
         return;
     }
-    console.info('  http://%s:%s',ip, port);
-});
+    console.info('服务启动失败:');
+    console.log(e.stack);
+})
+server.on('listening', function(){
 
+    var ips = lutil.getLocalIp();
+    console.log('server is listening on %d', port);
+    console.log('you can visit with:')
+
+    ips.forEach(function(ip){
+        // if(ips.length > 1 && (ip === '127.0.0.1' || ip === '0.0.0.0')){
+        //     return;
+        // }
+        console.info('  http://%s:%s',ip, port);
+    });
+
+})
+server.listen(port);
 
 function fileHandle(response, request, realPath, config) {
     let pathname    = path.relative(config.root, realPath);

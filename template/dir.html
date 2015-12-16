@@ -27,8 +27,14 @@
         </ul>
     {{/if}}
     </div>
-    <p class="power">power by wd-server <br>view on <a href="https://github.com/wheasy/wd-server" target="_blank">github</a></p>
+    <div class="power">
+        <p>当前页二维码：<span title="当前页面二维码" class="qrcode current-qr"></span></p>
+        <p class="info">
+        power by wd-server(<a href="https://github.com/wheasy/wd-server" target="_blank">github</a>)
+        </p>
+    </div>
     <script src="/__assets/js/jquery.1.11.3.min.js"></script>
+    <script src="/__assets/js/jquery.mobile.js"></script>
     <script src="/__assets/js/jquery.qrcode.js"></script>
     <script src="/__assets/js/qrcode.js"></script>
     <script>     
@@ -36,16 +42,15 @@
         $('body').append(box);
 
         $(function(){
-            
-
-            $('body').click(function(e){
-                var toEle = $(e.toElement);
+            var evt = $.mobile.any() ? 'touchstart' : 'click';
+            $('body').on(evt, function(e){
+                var toEle = $(e.toElement || e.target);
                 if(toEle.hasClass('qrcode')){
                     return;
                 }
                 box.hide();
             });
-            $('.qrcode').click(function(e){
+            $('.qrcode').on(evt, function(e){
                 e.preventDefault();
 
                 var self = $(this);
@@ -57,21 +62,17 @@
                 }
 
                 box.empty();
+
+
                 box.qrcode({
-                    render  : "table",
-                    text    : $(this).prev().attr('href')
+                    // render  : "table",
+                    text : self.hasClass('current-qr') ? location.href : window.location.protocol + "//" + window.location.host + $(this).prev().attr('href')
                 }); 
 
-                var pos = self.offset();
-                box.css({
-                    right   : self.width() + 50,
-                    top     : pos.top
-                })
-
-                self.addClass('active')
+                self.addClass('active');
                 box.show();
             });
-            box.click(function(){
+            box.on(evt, function(){
                 $('.active').removeClass('active')
                 box.hide();
             });

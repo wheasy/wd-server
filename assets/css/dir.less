@@ -26,10 +26,12 @@ a{
     background-position: center;    
 }
 .qrcode-box{
-    position: absolute;
+    position: fixed;
     display: none;
-    right: 82px;
-    top: 60px;
+    top:50%;
+    left:50%;
+    -webkit-transform:translate(-50%, -50%);
+    transform:translate(-50%, -50%);
     border: 2px solid #ccc;
     padding: 5px;
     background-color: #fff;    
@@ -61,8 +63,18 @@ a{
 
 .power{
     text-align: center;
-    opacity: .1;
+    font-size: 12px;
+    .info{
+        opacity: .3;
+    }
     a{
         color: blue;
+    }
+    .qrcode{
+        position: inherit;
+        vertical-align: middle;
+        height: 1em;
+        width: 1em;
+        display: inline-block;
     }
 }
