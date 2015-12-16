@@ -105,6 +105,7 @@ server.on('listening', function(){
     console.log('you can visit with:')
 
     ips.forEach(function(ip){
+        // 过滤 127.0.0.1
         // if(ips.length > 1 && (ip === '127.0.0.1' || ip === '0.0.0.0')){
         //     return;
         // }

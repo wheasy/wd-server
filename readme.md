@@ -16,9 +16,20 @@ wd-server 是一个轻量的Web Server。支持LESS（SASS、Stylus什么的，�
 $ sudo npm install wd-server -g
 ```
 
-### 下载示例站点
+### 创建项目
 
-包括样式引用和模板机制的使用
+```
+$ cd ~/project/site
+$ wd-server create
+```
+或
+
+```
+$ wd-server create -d ~/project/site
+```
+
+### 下载示例站点
+如果通过`create`命令安装失败，可手动下载。
 
 ```
 git clone https://github.com/wheasy/wd-server-example.git
@@ -50,7 +61,7 @@ wd-server有三个特殊文件（夹）
 名称|说明
 ----|----
 blocks|  模板存放目录
-less|    LESS文件存放目录
+cssLib|    LESS文件存放目录
 .wdsvr   |可通过该文件配置wd-server
 
 wd-server 默认不会显示这三个文件
@@ -60,13 +71,13 @@ wd-server 默认不会显示这三个文件
 
 默认会解析到站点根目录的 `_build`目录，也可通过参数 `r`指定目录。
 
-`wd-server build [p] [r]`
+`wd-server build [d] [r]`
 
-* p 站点根目录
+* d 站点根目录
 * r 要发布的目录，相对路径或绝对路径
 
 ```
-$ wd-server build -p ~/project/site -r ~/project/site-build
+$ wd-server build -d ~/project/site -r ~/project/site-build
 ```
 
 ###.wdsvr 详解
