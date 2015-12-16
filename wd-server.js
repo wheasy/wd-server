@@ -18,11 +18,22 @@ var mime = require('./cfg/mime');
 
 program
     .version(require('./package.json').version)
-    .option('-d, --dir <sire root>', '站点根目录')
-    .option('-p, --port <port>', '端口号')
-    .option('-r, --realPath <port>', '发布目录')
-    .parse(process.argv);
+    .option('-d, --dir', '站点根目录')
+    .option('-p, --port', '端口号')
+    .option('-r, --realPath', '发布目录');
 
+program.on('--help', function(){
+  console.log('  Examples:\n');
+  console.log('    启动服务');
+  console.log('    $ wd-server\n');
+  console.log('    创建项目');
+  console.log('    $ wd-server create -d ~/project/site\n');
+  console.log('    打包项目');
+  console.log('    $ wd-server build -d ~/project/site');
+  console.log('');
+});
+
+program.parse(process.argv);
 
 let root    = program.dir || process.cwd();
 let cfgPath = path.join(root, '.wdsvr');
@@ -32,7 +43,6 @@ if(program.args[0] == 'create'){
     require('./lib/creator')(root);
     return;
 }
-
 
 try {
     let userCfg = JSON.parse(fs.readFileSync(cfgPath, 'utf8'));
