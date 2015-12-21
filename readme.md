@@ -1,5 +1,3 @@
-#wd-server 
-
 wd-server 是一个轻量的Web Server。支持LESS（SASS、Stylus什么的，等后续吧。。。）解析、支持简单的模板继承。
 
 `wd-server` 的目的在于简化前端开发环境。支持LESS解析、
@@ -92,6 +90,8 @@ $ wd-server build -d ~/project/site -r ~/project/site-build
 {
     // 端口号
     "port": 8180,
+    // 是否使用模块引用，默认为true
+    "enableBlock": false
     // 忽略文件，目录索引和发布时会忽略以下文件
     "ignore": [
         ".DS_Store", 

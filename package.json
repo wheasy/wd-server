@@ -1,7 +1,7 @@
 {
   "name": "wd-server",
-  "version": "0.0.15",
-  "_version": "0.0.15",
+  "version": "0.0.20",
+  "_version": "0.0.20",
   "description": "wd-server 是一个轻量的Web Server。支持LESS解析和简单的模板继承。",
   "preferGlobal": true,
   "dependencies": {
@@ -15,7 +15,8 @@
     "lang-utils": "^0.0.2",
     "less": "^2.5.3",
     "request": "^2.67.0",
-    "tar.gz": "^1.0.2"
+    "tar.gz": "^1.0.2",
+    "uglify-js": "^2.6.1"
   },
   "bin": {
     "wd-server": "wd-server.js"
