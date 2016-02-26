@@ -7,6 +7,7 @@ require('console-prettify')();
 var url = require("url");
 var fs = require("fs");
 var path = require("path");
+var readline = require('readline');
 
 var program = require('commander');
 var lutil = require('lang-utils');
@@ -26,6 +27,7 @@ program.on('--help', function() {
     console.log('  Examples:\n');
     console.log('    启动服务');
     console.log('    $ wd-server\n');
+    console.log('    或：\n$ wd-server -d ~/project/site -p 8888\n');
     console.log('    创建项目');
     console.log('    $ wd-server create -d ~/project/site\n');
     console.log('    打包项目');
@@ -121,16 +123,32 @@ server.on('error', function(e) {
 })
 server.on('listening', function() {
 
-    var ips = lutil.getLocalIp();
     console.log('server is listening on %d', port);
     console.log('you can visit with:')
-
-    ips.forEach(function(ip) {
+    var ips = lutil.getLocalIp();
+    var fmt = 'http://%s:%s';
+    var opener = require('opener');
+    var util = require('util');
+    var i = [];
+    ips.forEach(function(ip, idx) {
         // 过滤 127.0.0.1
         // if(ips.length > 1 && (ip === '127.0.0.1' || ip === '0.0.0.0')){
         //     return;
         // }
-        console.info('  http://%s:%s', ip, port);
+        i.push(idx+1);
+        console.info(' (%s) '+fmt, idx + 1, ip, port);
+    });
+    if(ips.length == 1){
+        opener(util.format(fmt,ips[0],port));
+        return;
+    }
+    getInput('你可以选择一个地址在浏览器中打开，序号('+i.join('|')+')：', function(input){
+        input = parseInt(input) -1
+        if(ips[input]){
+            opener(util.format(fmt,ips[input],port));
+            return;
+        }
+        console.log('');
     });
 
 })
@@ -173,7 +191,9 @@ function fileHandle(response, request, realPath, config) {
     if (ext === 'html' || ext === 'htm') {
         if (config.enableBlock !== false) {
             require('./lib/engine')(realPath, {
-                    blockDir: config.blocks
+                    blockDir: config.blocks,
+                    openTag:config.openTag,
+                    closeTag:config.closeTag
                 },
                 function(data) {
                     var beautify = require('jstransformer')(require('jstransformer-html-beautify'))
@@ -265,4 +285,15 @@ function getTpl(name) {
             return a
         }
     }
+}
+function getInput(msg, callback) {
+    var rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout
+    });
+
+    rl.question(msg, function(input) {
+        rl.close();
+        callback(input);
+    });
 }

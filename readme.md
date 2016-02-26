@@ -92,6 +92,10 @@ $ wd-server build -d ~/project/site -r ~/project/site-build
     "port": 8180,
     // 是否使用模块引用，默认为true
     "enableBlock": false
+    // 自带模板的开始标记，默认是<%
+    "openTag":"<?",
+    // 自带模板的结束标记，默认是%>
+    "closeTag":"?>",
     // 忽略文件，目录索引和发布时会忽略以下文件
     "ignore": [
         ".DS_Store", 
