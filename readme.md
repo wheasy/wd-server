@@ -9,7 +9,7 @@ wd-server 是一个轻量的Web Server。支持LESS（SASS、Stylus什么的，�
 
 
 ### 安装
-__安装wd-server之前，请安装Nodejs环境_
+__安装wd-server之前，请安装Nodejs环境__
 
 ```
 $ sudo npm install wd-server -g
