@@ -1,34 +1,34 @@
 {
-  "name": "wd-server",
-  "version": "0.0.30",
-  "description": "wd-server 是一个轻量的Web Server。支持LESS解析和简单的模板继承。",
-  "preferGlobal": true,
-  "dependencies": {
-    "commander": "^2.9.0",
-    "console-prettify": ">=0.0.2",
-    "copy-dir": "0.0.8",
-    "file-plus": ">=0.0.2",
-    "fs-extra": "^0.26.2",
-    "jstransformer": "0.0.4",
-    "jstransformer-html-beautify": "0.0.1",
-    "lang-utils": "^0.0.2",
-    "less": "^2.5.3",
-    "request": "^2.67.0",
-    "tar.gz": "^1.0.2",
-    "opener":"^1.4.1",
-    "uglify-js": "^2.6.1"
-  },
-  "bin": {
-    "wd-server": "wd-server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/wheasy/wd-server"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "wheasy <wanhu88@gmail.com>",
-  "license": "ISC"
+    "version": "1.0.0",
+    "devDependencies": {},
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/wheasy/wd-server"
+    },
+    "author": "wheasy <wanhu88@gmail.com>",
+    "license": "ISC",
+    "bin": {
+        "wd-server": "wd-server.js"
+    },
+    "preferGlobal": true,
+    "dependencies": {
+        "console-prettify": ">=0.0.2",
+        "lang-utils": "^0.0.2",
+        "uglify-js": "^2.6.1",
+        "jstransformer": "0.0.4",
+        "fs-extra": "^0.26.2",
+        "jstransformer-html-beautify": "0.0.1",
+        "file-plus": ">=0.0.2",
+        "copy-dir": "0.0.8",
+        "less": "^2.5.3",
+        "request": "^2.67.0",
+        "tar.gz": "^1.0.2",
+        "commander": "^2.9.0",
+        "opener": "^1.4.1"
+    },
+    "name": "wd-server",
+    "description": "wd-server 是一个轻量的Web Server。支持LESS解析和简单的模板继承。"
 }

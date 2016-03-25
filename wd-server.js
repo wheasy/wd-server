@@ -193,7 +193,8 @@ function fileHandle(response, request, realPath, config) {
             require('./lib/engine')(realPath, {
                     blockDir: config.blocks,
                     openTag:config.openTag,
-                    closeTag:config.closeTag
+                    closeTag:config.closeTag,
+                    g: config.globalData || {}
                 },
                 function(data) {
                     var beautify = require('jstransformer')(require('jstransformer-html-beautify'))
