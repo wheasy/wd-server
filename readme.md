@@ -55,6 +55,8 @@ $ wd-server
 $ wd-server -d ~/project/site -p 8080
 ```
 
+>如端口号被占用，wd-server 会自动尝试在原端口上加1后启动。
+
 ### 目录结构
 wd-server有三个特殊文件（夹）
 
@@ -69,7 +71,7 @@ wd-server 默认不会显示这三个文件
 ### 发布
 你可以通过 `wd-server build`发布站点，发布后不包括 `block`和`less`文件。
 
-默认会解析到站点根目录的 `_build`目录，也可通过参数 `r`指定目录。
+默认会发布到站点根目录的 `_build`目录，也可通过参数 `r`指定目录。
 
 `wd-server build [d] [r]`
 
@@ -79,6 +81,8 @@ wd-server 默认不会显示这三个文件
 ```
 $ wd-server build -d ~/project/site -r ~/project/site-build
 ```
+
+发布时，如需要屏蔽部分文件，可在`.wdsvr`中`build_ignore`字段配置，支持字符串和正则
 
 ###.wdsvr 详解
 
@@ -92,6 +96,13 @@ $ wd-server build -d ~/project/site -r ~/project/site-build
 {
     // 端口号
     "port": 8180,
+    // 是否压缩JS和CSS
+    "comporess": true,
+    // 全局变量
+    "globalData":{
+        // 版本号
+        "ver": "20160325165232"
+    },
     // 是否使用模块引用，默认为true
     "enableBlock": false
     // 自带模板的开始标记，默认是<%
@@ -114,6 +125,12 @@ $ wd-server build -d ~/project/site -r ~/project/site-build
         ......
     }
 }
+```
+
+在配置文件中指定`globalData`后，在页面中可以通过`$g`引用，如：
+
+```
+    <link rel="stylesheet" href="/css/home.css?v=<%$g.ver%>"/>
 ```
 
 如需要指定端口号，可在启动时通过参数`p`指定。
