@@ -79,12 +79,16 @@ config.ignore = (config[igKey] || []).map(function(item) {
 // 发布
 if (program.args[0] == 'build') {
     config.realPath = program.realPath || '_build'
+    // 发布默认压缩
+    if(typeof config.compress == 'undefined'){
+        config.compress = true;
+    }
     require('./lib/build')(config);
     return;
 }
 let port = program.port || config.port || 8180;
 
-//创建http服务端
+//创建 http 服务端
 let server = require("http").createServer(function(request, response) {
 
     response.setHeader("Server", "lesser");
@@ -241,9 +245,8 @@ function dirHandle(response, request, realPath, config) {
             if (isDir) {
                 type = 'folder'
             }
-
             printList.push({
-                path: ('/'+pathname + '/' + f).replace(/\/+/g, '/'),
+                path: encodeURI(('/'+pathname + '/' + f).replace(/\/+/g, '/')),
                 name: f,
                 isDir: isDir,
                 type: type,
