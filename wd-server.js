@@ -98,7 +98,7 @@ let server = require("http").createServer(function (request, response) {
   response.setHeader('CacheControl', 'no-store');
 
   let pathname = decodeURI(url.parse(request.url).pathname)
-  if (!pathname || pathname === '/' && fs.existsSync(config.index || 'index.html')) {
+  if (!pathname || pathname.lastIndexOf('/') === pathname.length -1 && fs.existsSync(config.index || 'index.html')) {
     pathname = config.index || 'index.html'
   }
   let realPath = path.join(root, pathname);
