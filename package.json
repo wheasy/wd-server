@@ -1,5 +1,5 @@
 {
-    "version": "1.0.3",
+    "version": "1.0.6",
     "devDependencies": {},
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
@@ -8,7 +8,7 @@
         "type": "git",
         "url": "https://github.com/wheasy/wd-server"
     },
-    "author": "wheasy <wanhu88@gmail.com>",
+    "author": "wheasy <wanhu88@qq.com>",
     "license": "ISC",
     "bin": {
         "wd-server": "wd-server.js"

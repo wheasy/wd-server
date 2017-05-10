@@ -88,28 +88,41 @@ if (program.args[0] == 'build') {
 }
 let port = program.port || config.port || 8180;
 
-//创建 http 服务端
-let server = require("http").createServer(function (request, response) {
-
+function setHeader(response) {
   response.setHeader("Server", "lesser");
   // 字体跨域访问
   response.setHeader('Access-Control-Allow-Origin', "*");
   // 强制缓存，方便手机调试
   response.setHeader('CacheControl', 'no-store');
 
+}
+
+//创建 http 服务端
+let server = require("http").createServer(function (request, response) {
+
+
   let pathname = decodeURI(url.parse(request.url).pathname)
-  if (!pathname || pathname.lastIndexOf('/') === pathname.length -1 && fs.existsSync(config.index || 'index.html')) {
-    pathname = config.index || 'index.html'
-  }
   let realPath = path.join(root, pathname);
   let stat = tryStat(realPath);
 
   // 文件列表
-  if (stat && stat.isDirectory()) {
-    dirHandle(response, request, realPath, config);
-  } else {
-    fileHandle(response, request, realPath, config);
+  if (stat && stat.isDirectory()){
+      if (pathname[pathname.length -1] !== '/') {
+        response.writeHead(302, {
+            'Location': pathname + '/'
+          });
+          response.end();
+        return
+      }
+      let indexPath = path.join(realPath, config.index || 'index.html');
+      if (fs.existsSync(indexPath)) {
+        realPath = indexPath
+      } else{
+        dirHandle(response, request, realPath, config);
+        return
+      }
   }
+  fileHandle(response, request, realPath, config);
 });
 var temp_i = 0;
 server.on('error', function (e) {
@@ -162,6 +175,7 @@ server.on('listening', function () {
 server.listen(port);
 
 function fileHandle(response, request, realPath, config) {
+  setHeader(response)
   let pathname = path.relative(config.root, realPath);
   let ext = path.extname(pathname);
   ext = ext ? ext.slice(1) : 'unknown';
@@ -227,6 +241,7 @@ function fileHandle(response, request, realPath, config) {
 }
 
 function dirHandle(response, request, realPath, config) {
+  setHeader(response)
   let files = fs.readdirSync(realPath);
   let pathname = path.relative(config.root, realPath);
   let printList = [];
