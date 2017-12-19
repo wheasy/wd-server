@@ -61,7 +61,6 @@ try {
       ' you also can join the qq group(370792320) to get help!', cfgPath);
   }
 }
-
 config.root = root;
 config.blocks = path.join(root, 'blocks');
 config.log = config.log !== false;
@@ -104,9 +103,9 @@ let server = require("http").createServer(function (request, response) {
   let pathname = decodeURI(url.parse(request.url).pathname)
   let realPath = path.join(root, pathname);
   let stat = tryStat(realPath);
-
+  
   // 文件列表
-  if (stat && stat.isDirectory()){
+  if (stat && stat.isDirectory() && !(existHtml(realPath))){
       if (pathname[pathname.length -1] !== '/') {
         response.writeHead(302, {
             'Location': pathname + '/'
@@ -179,9 +178,6 @@ function fileHandle(response, request, realPath, config) {
   let pathname = path.relative(config.root, realPath);
   let ext = path.extname(pathname);
   ext = ext ? ext.slice(1) : 'unknown';
-  let contentType = mime[ext] || "text/plain";
-
-  response.setHeader("Content-Type", contentType);
 
   if (pathname.indexOf('__assets') == 0) {
     config = {
@@ -192,7 +188,17 @@ function fileHandle(response, request, realPath, config) {
     realPath = path.join(config.root, pathname.replace('__assets', ''));
   }
 
+  if (ext === 'unknown') {
+    let _ext = existHtml(realPath)
+    if (_ext) {
+      ext = _ext
+      realPath = realPath + '.' + ext
+    }
+  }
 
+  let contentType = mime[ext] || "text/plain";
+  response.setHeader("Content-Type", contentType);
+  
   if (!tryStat(realPath)) {
     if (ext == 'css') {
       require('./lib/lesser')(realPath, config, function (css) {
@@ -204,11 +210,12 @@ function fileHandle(response, request, realPath, config) {
     response.writeHead(404, "not found", {
       'Content-Type': 'text/plain'
     });
-    response.end(realPath + " is not found");
+    response.end(realPath + " is not found(2)");
     config.log && console.warn('404 ', request.url);
     console.warn(realPath + " is not found")
     return;
   }
+
   if (ext === 'html' || ext === 'htm') {
     if (config.enableBlock !== false) {
       require('./lib/engine')(realPath, {
@@ -231,10 +238,10 @@ function fileHandle(response, request, realPath, config) {
 
   require('fs').readFile(realPath, function (err, data) {
     if (err) {
-      config.log && console.log('500 ', request.url);
+      config.log && console.log('500 ', request.url, realPath);
       data = JSON.stringify(err)
     } else {
-      config.log && console.log('200 ', request.url);
+      config.log && console.log('200 ', request.url, realPath);
     }
     response.end(data);
   })
@@ -318,4 +325,14 @@ function getInput(msg, callback) {
     rl.close();
     callback(input);
   });
+}
+
+function existHtml(filePath){
+  if (fs.existsSync(filePath + '.html')) {
+    return 'html'
+  }
+  if (fs.existsSync(filePath + '.htm')) {
+    return 'htm'
+  }
+  return null
 }
