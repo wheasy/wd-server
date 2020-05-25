@@ -90,15 +90,14 @@ let port = program.port || config.port || 8180;
 function setHeader(response) {
   response.setHeader("Server", "lesser");
   // 字体跨域访问
+  response.setHeader('Access-Control-Allow-Headers', 'content-type,x-requested-with');
   response.setHeader('Access-Control-Allow-Origin', "*");
   // 强制缓存，方便手机调试
   response.setHeader('CacheControl', 'no-store');
-
 }
 
 //创建 http 服务端
 let server = require("http").createServer(function (request, response) {
-
 
   let pathname = decodeURI(url.parse(request.url).pathname)
   let realPath = path.join(root, pathname);
