@@ -15,7 +15,7 @@
     },
     "preferGlobal": true,
     "dependencies": {
-        "commander": "^2.9.0",
+        "commander": "^2.20.3",
         "console-prettify": ">=0.0.2",
         "copy-dir": "0.0.8",
         "file-plus": ">=0.0.2",
@@ -24,7 +24,7 @@
         "jstransformer-html-beautify": "0.0.1",
         "lang-utils": "^0.0.2",
         "less": "^3.11.1",
-        "opener": "^1.4.1",
+        "opener": "^1.5.1",
         "request": "^2.88.2",
         "tar.gz": "^1.0.2",
         "uglify-js": "^2.6.1"
